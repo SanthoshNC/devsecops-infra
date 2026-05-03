@@ -6,6 +6,13 @@ jobs:
     steps:
     - name: Clone the repo
       uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+
+    - name: Secret Scanning
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
     
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v4
@@ -24,7 +31,7 @@ jobs:
       run: terraform init    
       
     - name: Run Terraform Format
-      run: terraform fmt
+      run: terraform format
 
     - name: Run Terraform Validate
       run: terraform validate
