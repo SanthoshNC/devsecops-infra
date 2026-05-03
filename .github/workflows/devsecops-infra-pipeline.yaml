@@ -1,0 +1,23 @@
+name: devsecops-infra-pipeline
+on: push
+jobs:
+  devsecops-infra:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone the repo
+      uses: actions/checkout@v6
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v4
+
+    - name: Verify Terraform Version
+      run: terraform version
+      
+    - name: Run Terraform Init
+      run: terraform init    
+      
+    - name: Run Terraform Format
+      run: terraform format
+
+    - name: Run Terraform Validate
+      run: terraform validate
